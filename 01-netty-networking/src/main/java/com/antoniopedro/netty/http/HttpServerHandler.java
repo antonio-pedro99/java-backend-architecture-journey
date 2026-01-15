@@ -29,8 +29,12 @@ public class HttpServerHandler extends SimpleChannelInboundHandler<FullHttpReque
         
         log.debug("Received {} request for {}", method, uri);
         
-        // Extract path (without query parameters)
-        String path = uri.split("\\?")[0];
+        // Extract path (without query parameters) using proper URI parsing
+        String path = uri;
+        int queryIndex = uri.indexOf('?');
+        if (queryIndex != -1) {
+            path = uri.substring(0, queryIndex);
+        }
         
         try {
             // Find and execute route handler

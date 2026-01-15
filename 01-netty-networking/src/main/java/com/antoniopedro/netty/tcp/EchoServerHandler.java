@@ -24,9 +24,12 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
             log.debug("Received: {}", message.trim());
             
             // Echo back the received data
-            ctx.write(msg);
-        } catch (Exception e) {
-            log.error("Error reading message", e);
+            // Create a new buffer with the same content for writing
+            ByteBuf response = ctx.alloc().buffer(bytes.length);
+            response.writeBytes(bytes);
+            ctx.write(response);
+        } finally {
+            // Always release the original buffer
             buffer.release();
         }
     }

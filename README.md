@@ -89,7 +89,7 @@ This repository serves as a practical learning journey through modern Java backe
 ### DevOps & Quality
 - **CI/CD:** GitHub Actions
 - **Code Quality:** SonarQube, SpotBugs, Checkstyle
-- **Monitoring:** Prometheus, Grafina, Zipkin
+- **Monitoring:** Prometheus, Grafana, Zipkin
 - **Containerization:** Docker, Docker Compose
 
 ## 🚀 Getting Started
