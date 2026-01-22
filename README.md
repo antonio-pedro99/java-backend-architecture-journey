@@ -11,6 +11,7 @@ This repository serves as a practical learning journey through modern Java backe
 ### [Milestone 1: Networking in Java with Netty](./01-netty-networking)
 **Duration:** 2-3 weeks  
 **Focus:** Low-level networking, asynchronous I/O, protocol implementation
+**Status:** Ongoing
 
 - Building high-performance HTTP servers
 - WebSocket real-time communication
@@ -27,6 +28,7 @@ This repository serves as a practical learning journey through modern Java backe
 ### [Milestone 2: Spring Framework & Spring Boot](./02-spring-framework)
 **Duration:** 3-4 weeks  
 **Focus:** Enterprise application development, dependency injection, REST APIs
+**Status:** Planned
 
 - Advanced dependency injection patterns
 - RESTful API design and implementation
@@ -44,6 +46,7 @@ This repository serves as a practical learning journey through modern Java backe
 ### [Milestone 3: Clean Code & Clean Architecture](./03-clean-architecture)
 **Duration:** 3-4 weeks  
 **Focus:** Software design principles, maintainability, scalability
+**Status:** Planned
 
 - Hexagonal Architecture (Ports & Adapters)
 - Domain-Driven Design (DDD) concepts
@@ -61,6 +64,7 @@ This repository serves as a practical learning journey through modern Java backe
 ### [Milestone 4: Designing Data-Intensive Applications](./04-data-intensive-apps)
 **Duration:** 4-5 weeks  
 **Focus:** Distributed systems, scalability, reliability
+**Status:** Planned
 
 - Event-driven architecture (Kafka, RabbitMQ)
 - Caching strategies (Redis, Caffeine)
