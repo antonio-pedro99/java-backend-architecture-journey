@@ -155,7 +155,7 @@ cd performance
 
 You've mastered this milestone when you can:
 
-- [ ] Explain the difference between blocking and non-blocking I/O
+- [x] Explain the difference between blocking and non-blocking I/O
 - [ ] Implement a custom protocol from scratch
 - [ ] Debug network issues using tools like Wireshark
 - [ ] Optimize a Netty application for throughput or latency

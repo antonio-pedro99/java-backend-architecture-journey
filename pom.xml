@@ -30,7 +30,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         
         <!-- Dependency versions -->
-        <netty.version>4.1.104.Final</netty.version>
+        <netty.version>4.0.31.Final</netty.version>
         <spring-boot.version>3.2.1</spring-boot.version>
         <junit.version>5.10.1</junit.version>
         <mockito.version>5.8.0</mockito.version>

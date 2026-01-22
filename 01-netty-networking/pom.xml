@@ -16,7 +16,7 @@
     <name>Milestone 1: Netty Networking</name>
     <description>High-performance networking with Netty framework</description>
     <modules>
-        <module>tcp</module>
+        <module>01-tcp</module>
     </modules>
 
     <dependencies>
@@ -36,10 +36,6 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
         </dependency>
 
         <!-- Utilities -->
@@ -66,26 +62,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.1.1</version>
-                <configuration>
-                    <mainClass>com.antoniopedro.netty.http.HttpServer</mainClass>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
 </project>
