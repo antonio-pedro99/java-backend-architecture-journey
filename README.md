@@ -138,7 +138,7 @@ milestone-directory/
 ├── src/main/java/           # Production code
 ├── src/test/java/           # Tests (unit, integration)
 ├── docker-compose.yml       # Infrastructure setup
-└── performance/             # Benchmarks and optimization notes
+└── performance/             # Benchmarks and optimization notes(Optional)
 ```
 
 ### Recommended Study Method
@@ -153,12 +153,7 @@ milestone-directory/
 ## 🤝 Contributing
 
 This is a personal learning journey, but feedback and suggestions are welcome!
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/improvement`)
-3. Commit your changes (`git commit -am 'Add some improvement'`)
-4. Push to the branch (`git push origin feature/improvement`)
-5. Open a Pull Request
+Please, use GitHub Issues for feedback or improvements.
 
 ## 📖 Resources
 
@@ -179,19 +174,3 @@ This is a personal learning journey, but feedback and suggestions are welcome!
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👤 Author
-
-**Antonio Pedro**
-
-- GitHub: [@antonio-pedro99](https://github.com/antonio-pedro99)
-- Learning Journey: Building expertise in Java backend architecture
-
-## 🌟 Acknowledgments
-
-- The Java and Spring communities for excellent documentation
-- Authors of the reference books listed above
-- Open-source contributors to all technologies used
-
----
-
-**Note:** This repository is continuously evolving as I progress through each milestone. Check individual milestone directories for current status and detailed implementations.

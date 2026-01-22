@@ -59,41 +59,14 @@ By completing this milestone, you will:
 ├── src/main/java/com/antoniopedro/spring/
 │   ├── EcommerceApplication.java
 │   ├── config/                  # Configuration classes
-│   │   ├── SecurityConfig.java
-│   │   ├── JpaConfig.java
-│   │   └── WebConfig.java
 │   ├── domain/                  # Domain models
-│   │   ├── User.java
-│   │   ├── Product.java
-│   │   ├── Order.java
-│   │   └── OrderItem.java
 │   ├── repository/              # Data access layer
-│   │   ├── UserRepository.java
-│   │   ├── ProductRepository.java
-│   │   └── OrderRepository.java
 │   ├── service/                 # Business logic
-│   │   ├── UserService.java
-│   │   ├── ProductService.java
-│   │   ├── OrderService.java
-│   │   └── AuthenticationService.java
 │   ├── controller/              # REST endpoints
-│   │   ├── UserController.java
-│   │   ├── ProductController.java
-│   │   ├── OrderController.java
-│   │   └── AuthController.java
 │   ├── dto/                     # Data Transfer Objects
-│   │   ├── request/
-│   │   └── response/
 │   ├── security/                # Security components
-│   │   ├── JwtTokenProvider.java
-│   │   ├── JwtAuthenticationFilter.java
-│   │   └── UserPrincipal.java
 │   ├── exception/               # Exception handling
-│   │   ├── GlobalExceptionHandler.java
-│   │   └── custom exceptions
 │   └── event/                   # Event-driven components
-│       ├── OrderCreatedEvent.java
-│       └── OrderEventListener.java
 ├── src/main/resources/
 │   ├── application.yml
 │   ├── application-dev.yml

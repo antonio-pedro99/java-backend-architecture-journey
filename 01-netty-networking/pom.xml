@@ -12,8 +12,12 @@
     </parent>
 
     <artifactId>netty-networking</artifactId>
+    <packaging>pom</packaging>
     <name>Milestone 1: Netty Networking</name>
     <description>High-performance networking with Netty framework</description>
+    <modules>
+        <module>tcp</module>
+    </modules>
 
     <dependencies>
         <!-- Netty -->

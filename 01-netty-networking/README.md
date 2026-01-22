@@ -31,41 +31,9 @@ By completing this milestone, you will:
 - ByteBuf memory management
 - Channel futures and promises
 
-## 🏗️ Project Structure
-
-```
-01-netty-networking/
-├── src/main/java/com/antoniopedro/netty/
-│   ├── http/                    # HTTP server implementation
-│   │   ├── HttpServer.java
-│   │   ├── HttpServerHandler.java
-│   │   ├── Router.java
-│   │   └── RouteHandler.java
-│   ├── websocket/               # WebSocket server implementation
-│   │   ├── WebSocketServer.java
-│   │   ├── WebSocketFrameHandler.java
-│   │   └── ChatRoom.java
-│   ├── protocol/                # Custom protocol implementation
-│   │   ├── CustomProtocolServer.java
-│   │   ├── MessageEncoder.java
-│   │   ├── MessageDecoder.java
-│   │   └── Message.java
-│   ├── tcp/                     # TCP server examples
-│   │   ├── EchoServer.java
-│   │   └── EchoServerHandler.java
-│   └── udp/                     # UDP server examples
-│       ├── UdpServer.java
-│       └── UdpServerHandler.java
-├── src/test/java/               # Comprehensive tests
-├── docs/                        # Architecture diagrams, notes
-├── performance/                 # Benchmark results
-└── README.md
-```
-
 ## 🚀 Implementations
 
 ### 1. HTTP Server with Routing
-**File:** `http/HttpServer.java`
 
 A production-ready HTTP/1.1 server featuring:
 - Route-based request handling (GET, POST, PUT, DELETE)
@@ -82,7 +50,6 @@ A production-ready HTTP/1.1 server featuring:
 - Error handling in network applications
 
 ### 2. WebSocket Real-Time Chat
-**File:** `websocket/WebSocketServer.java`
 
 A real-time chat application demonstrating:
 - WebSocket handshake and upgrade
@@ -98,7 +65,6 @@ A real-time chat application demonstrating:
 - Scalability considerations for real-time apps
 
 ### 3. Custom Binary Protocol
-**File:** `protocol/CustomProtocolServer.java`
 
 A custom protocol implementation showcasing:
 - Protocol design (message framing, headers)
@@ -114,7 +80,6 @@ A custom protocol implementation showcasing:
 - Protocol evolution strategies
 
 ### 4. TCP Echo Server
-**File:** `tcp/EchoServer.java`
 
 A simple but instructive TCP server:
 - Basic channel setup
@@ -123,7 +88,6 @@ A simple but instructive TCP server:
 - Resource cleanup
 
 ### 5. UDP Server
-**File:** `udp/UdpServer.java`
 
 Connectionless protocol handling:
 - DatagramPacket handling
@@ -166,34 +130,6 @@ Connectionless protocol handling:
 - Memory leak detection
 - Connection pooling
 
-## 🛠️ Running the Examples
-
-### Start HTTP Server
-```bash
-mvn compile exec:java -Dexec.mainClass="com.antoniopedro.netty.http.HttpServer"
-```
-
-Test with curl:
-```bash
-# GET request
-curl http://localhost:8080/api/users
-
-# POST request
-curl -X POST http://localhost:8080/api/users \
-  -H "Content-Type: application/json" \
-  -d '{"name":"John","email":"john@example.com"}'
-```
-
-### Start WebSocket Server
-```bash
-mvn compile exec:java -Dexec.mainClass="com.antoniopedro.netty.websocket.WebSocketServer"
-```
-
-Test with websocat:
-```bash
-websocat ws://localhost:8081/chat
-```
-
 ### Run Benchmarks
 ```bash
 cd performance
@@ -212,8 +148,8 @@ cd performance
 - [Reactor Pattern](https://en.wikipedia.org/wiki/Reactor_pattern)
 
 ### Videos
-- [Netty: A Different Kind of Web Server](https://www.youtube.com/results?search_query=netty+tutorial)
-- [Understanding Network I/O](https://www.youtube.com/results?search_query=network+io+blocking)
+- [Netty, the IO framework that propels them all By Stephane LANDELLE](https://www.youtube.com/watch?v=NvnOg6g4114&t=10s)
+- [Understanding Network I/O](https://www.youtube.com/watch?v=I5j9TBcqe_Q)
 
 ## 🎯 Success Criteria
 
