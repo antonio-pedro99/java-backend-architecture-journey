@@ -33,13 +33,12 @@ public class MiniHttpServer {
             bootstrap.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
                     .localAddress(new InetSocketAddress(port))
-                    .childOption(ChannelOption.SO_KEEPALIVE, true)
+                    .childOption(ChannelOption.SO_KEEPALIVE, false)
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
-                        protected void initChannel(SocketChannel socketChannel) throws Exception {
-                            socketChannel.pipeline()
-                                    .addLast(new MiniHttpEncoder());
-                            socketChannel.pipeline().addLast(new MiniHttpHandler());
+                        protected void initChannel(SocketChannel sc) throws Exception {
+                           sc.pipeline().addLast(new MiniHttpEncoder());
+                           sc.pipeline().addLast(new MiniHttpHandler());
                         }
                     });
             ChannelFuture f = bootstrap.bind().sync();

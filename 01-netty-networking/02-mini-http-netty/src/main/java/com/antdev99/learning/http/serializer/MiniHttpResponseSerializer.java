@@ -10,11 +10,14 @@ public class MiniHttpResponseSerializer implements HttpMessageSerializer<MiniHtt
 
     @Override
     public String serialize(MiniHttpResponse message) {
-        return message.version() + " " + message.statusCode().code() + " " + message.statusCode().reasonPhrase() + "\r\n" +
-                String.join("\r\n", message.headers().stream()
-                        .map(header -> header.name() + ": " + header.value())
-                        .toArray(String[]::new)) +
-                "\r\n" +
-                message.body();
+        String headers = message.headers().entrySet().stream()
+                .map(entry -> entry.getKey() + ": " + entry.getValue())
+                .reduce((h1, h2) -> h1 + "\r\n" + h2)
+                .orElse("");
+
+        return message.version() + " " + message.statusCode().code() + " " + message.statusCode().reasonPhrase() + "\r\n"
+                + (headers.isEmpty() ? "" : headers + "\r\n")
+                + "\r\n"
+                + (message.body() != null ? message.body() : "");
     }
 }

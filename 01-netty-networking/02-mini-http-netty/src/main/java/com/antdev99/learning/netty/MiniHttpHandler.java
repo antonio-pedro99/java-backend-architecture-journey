@@ -10,6 +10,10 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.CharsetUtil;
 
+/**
+ * A Netty channel handler that processes incoming MiniHttpRequest messages and generates appropriate MiniHttpResponse messages.
+ * This handler reads the HTTP request, constructs a response, and sends it back to the client.
+ */
 public class MiniHttpHandler extends SimpleChannelInboundHandler<MiniHttpRequest> {
     private MiniHttpRequest request;
     private final MiniHttpResponseSerializer responseSerializer = new MiniHttpResponseSerializer();
@@ -24,15 +28,19 @@ public class MiniHttpHandler extends SimpleChannelInboundHandler<MiniHttpRequest
         handleRequestContext(ctx);
     }
 
+    /**
+     * Handles the context of the incoming HTTP request, constructs a response, and sends it back to the client.
+     *
+     * @param ctx the ChannelHandlerContext associated with the current channel
+     */
     private void handleRequestContext(ChannelHandlerContext ctx) {
         System.out.println(ctx.channel().remoteAddress() + ": " + request.method() + " " + request.path());
 
         final MiniHttpResponse.Builder responseBuilder = new MiniHttpResponse.Builder().
                 withVersion(request.version())
                 .withStatusCode(MiniHttpResponse.StatusCode.OK)
-                .withHeaders(request.headers().entrySet().stream()
-                        .map(entry -> new MiniHttpHeader(entry.getKey(), entry.getValue().toString()))
-                        .toList())
+                .withHeader(new MiniHttpHeader(MiniHttpHeader.CONTENT_LENGTH, "Hello, World!".length()))
+                .withHeader(new MiniHttpHeader(MiniHttpHeader.CONTENT_TYPE, "text/plain"))
                 .withBody("Hello, World!");
 
         String response = responseSerializer.serialize(responseBuilder.build());

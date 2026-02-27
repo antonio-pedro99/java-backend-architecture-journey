@@ -1,11 +1,12 @@
 package com.antdev99.learning.http;
 
-import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * A simple representation of an HTTP response.
  */
-public record MiniHttpResponse(String version, List<MiniHttpHeader> headers, StatusCode statusCode, String body) implements MiniHttpMessage {
+public record MiniHttpResponse(String version, Map<String, Object> headers, StatusCode statusCode, String body) implements MiniHttpMessage {
 
     /**
      * Builder class for constructing HttpResponse instances in a fluent manner.
@@ -13,17 +14,17 @@ public record MiniHttpResponse(String version, List<MiniHttpHeader> headers, Sta
     public static class Builder {
         private StatusCode statusCode;
         private String body;
-        private List<MiniHttpHeader> headers;
+        private final Map<String, Object> headers = new ConcurrentHashMap<>();
         private String version = "HTTP/1.1"; // Default HTTP version
 
          /**
          * Sets the headers for the HTTP response.
          *
-         * @param headers a list of MiniHttpHeader objects representing the response headers
+         * @param header the list of headers to include in the response
          * @return the Builder instance for chaining
          */
-        public Builder withHeaders(List<MiniHttpHeader> headers) {
-            this.headers = headers;
+        public Builder withHeader(MiniHttpHeader header) {
+            this.headers.put(header.name(), header.value());
             return this;
         }
 
