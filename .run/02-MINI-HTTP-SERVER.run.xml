@@ -1,7 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="01-TCP-ECHO-CLIENT" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="com.antdev99.learning.EchoClient" />
-    <module name="01-tcp" />
+  <configuration default="false" name="02-MINI-HTTP-SERVER" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="com.antdev99.learning.Main" />
+    <module name="02-mini-http-netty" />
+    <option name="VM_PARAMETERS" value="-Dio.netty.leakDetectionLevel=ADVANCED" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="com.antdev99.learning.http.*" />
