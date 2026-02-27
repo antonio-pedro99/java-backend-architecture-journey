@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>com.antdev99.learning</groupId>
-    <artifactId>02-mini-http-netty</artifactId>
+    <artifactId>03-mini-http-netty</artifactId>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
