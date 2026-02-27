@@ -36,8 +36,8 @@ public class MiniHttpHandler extends SimpleChannelInboundHandler<MiniHttpRequest
     private void handleRequestContext(ChannelHandlerContext ctx) {
         System.out.println(ctx.channel().remoteAddress() + ": " + request.method() + " " + request.path());
 
-        final MiniHttpResponse.Builder responseBuilder = new MiniHttpResponse.Builder().
-                withVersion(request.version())
+        final MiniHttpResponse.Builder responseBuilder = new MiniHttpResponse.Builder()
+                .withVersion(request.version())
                 .withStatusCode(MiniHttpResponse.StatusCode.OK)
                 .withHeader(new MiniHttpHeader(MiniHttpHeader.CONTENT_LENGTH, "Hello, World!".length()))
                 .withHeader(new MiniHttpHeader(MiniHttpHeader.CONTENT_TYPE, "text/plain"))

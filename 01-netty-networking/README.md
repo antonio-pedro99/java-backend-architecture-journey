@@ -33,9 +33,34 @@ By completing this milestone, you will:
 
 ## 🚀 Implementations
 
-### 1. HTTP Server with Routing
+### 1. TCP Echo Server
 
-A production-ready HTTP/1.1 server featuring:
+A simple but instructive TCP server:
+- Basic channel setup
+- Reading and writing data
+- Exception handling
+- Resource cleanup
+
+**Key Learning Points:**
+- Channel initialization and pipeline setup
+- Handling client connections and disconnections
+- Echoing data back to clients
+
+### 2. Plain TCP OIO Server
+
+A traditional blocking I/O server for comparison:
+- ServerSocket and Socket usage
+- Thread-per-connection model
+- Performance limitations
+
+**Key Learning Points:**
+- Understanding blocking I/O and its drawbacks
+- Comparing with Netty's non-blocking approach
+- Identifying scenarios where OIO might still be appropriate
+
+### 3. HTTP Server with Routing
+
+A basic HTTP/1.1 server featuring:
 - Route-based request handling (GET, POST, PUT, DELETE)
 - JSON request/response support
 - Query parameter parsing
@@ -44,27 +69,12 @@ A production-ready HTTP/1.1 server featuring:
 - Connection keep-alive support
 
 **Key Learning Points:**
+- ByteBuf manipulation for HTTP messages
+- Codec development for HTTP parsing and generation
 - HTTP protocol implementation details
-- Efficient routing mechanisms
-- Content negotiation
 - Error handling in network applications
 
-### 2. WebSocket Real-Time Chat
-
-A real-time chat application demonstrating:
-- WebSocket handshake and upgrade
-- Bidirectional communication
-- Broadcasting to multiple clients
-- Connection lifecycle management
-- Heartbeat/ping-pong mechanism
-
-**Key Learning Points:**
-- WebSocket protocol specifics
-- Managing stateful connections
-- Handling connection drops gracefully
-- Scalability considerations for real-time apps
-
-### 3. Custom Binary Protocol
+### 4. Custom Binary Protocol
 
 A custom protocol implementation showcasing:
 - Protocol design (message framing, headers)
@@ -78,14 +88,6 @@ A custom protocol implementation showcasing:
 - ByteBuf manipulation
 - Codec development
 - Protocol evolution strategies
-
-### 4. TCP Echo Server
-
-A simple but instructive TCP server:
-- Basic channel setup
-- Reading and writing data
-- Exception handling
-- Resource cleanup
 
 ### 5. UDP Server
 

@@ -17,7 +17,8 @@
     <description>High-performance networking with Netty framework</description>
     <modules>
         <module>01-tcp</module>
-        <module>02-mini-http-netty</module>
+        <module>02-plain-oio-server</module>
+        <module>03-mini-http-netty</module>
     </modules>
 
     <dependencies>

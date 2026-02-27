@@ -9,7 +9,7 @@ This repository serves as a practical learning journey through modern Java backe
 ## 🗺️ Learning Milestones
 
 ### [Milestone 1: Networking in Java with Netty](./01-netty-networking)
-**Duration:** 2-3 weeks  
+**Duration:** 2-6 weeks  
 **Focus:** Low-level networking, asynchronous I/O, protocol implementation
 **Status:** Ongoing
 
@@ -20,7 +20,7 @@ This repository serves as a practical learning journey through modern Java backe
 - Performance optimization and benchmarking
 
 **Key Deliverables:**
-- Production-ready HTTP server with routing
+- Basic implementation of an HTTP server with routing
 - Real-time chat application using WebSockets
 - Custom binary protocol implementation
 - Performance comparison with traditional Java NIO

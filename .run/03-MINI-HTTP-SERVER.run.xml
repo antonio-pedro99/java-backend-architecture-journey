@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="02-MINI-HTTP-SERVER" type="Application" factoryName="Application">
+  <configuration default="false" name="03-MINI-HTTP-SERVER" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="com.antdev99.learning.Main" />
-    <module name="02-mini-http-netty" />
+    <module name="03-mini-http-netty" />
     <option name="VM_PARAMETERS" value="-Dio.netty.leakDetectionLevel=ADVANCED" />
     <extension name="coverage">
       <pattern>
