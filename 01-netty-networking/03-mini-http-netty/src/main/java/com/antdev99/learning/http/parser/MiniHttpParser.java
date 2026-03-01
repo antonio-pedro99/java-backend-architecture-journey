@@ -2,6 +2,8 @@ package com.antdev99.learning.http.parser;
 
 import com.antdev99.learning.http.MiniHttpRequest;
 import io.netty.buffer.ByteBuf;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,6 +13,7 @@ import java.util.List;
  * A simple HTTP parser
  */
 public final class MiniHttpParser {
+    private static final Logger logger = LoggerFactory.getLogger(MiniHttpParser.class);
 
     /**
      * Parses an HTTP request from the given ByteBuf.
@@ -19,14 +22,23 @@ public final class MiniHttpParser {
      * @return an HttpRequest object representing the parsed HTTP request
      */
     public static MiniHttpRequest parseRequest(ByteBuf buf) {
+        logger.debug("Parsing HTTP request...");
+
         HttpRequestFirstLine firstLine = extractRequestFirstLine(buf);
         if (firstLine == null) {
+            logger.error("Invalid HTTP request: Missing first line");
             throw new IllegalArgumentException("Invalid HTTP request: Missing first line");
         }
+
+        logger.debug("Parsed request line: {} {} {}", firstLine.method(), firstLine.path(), firstLine.version());
+
         List<HttpHeaderLine> headers = extractHeaders(buf);
         if (headers.isEmpty()) {
+            logger.error("Invalid HTTP request: Missing headers");
             throw new IllegalArgumentException("Invalid HTTP request: Missing headers");
         }
+
+        logger.debug("Parsed {} headers", headers.size());
 
         HashMap<String, Object> headersMap = headers.stream().collect(
                 HashMap::new,
@@ -37,13 +49,17 @@ public final class MiniHttpParser {
         if (firstLine.method().equals("POST") || firstLine.method().equals("PUT")) {
             String body = readBody(buf);
             if (body.isBlank()) {
+                logger.error("Invalid HTTP request: Missing body for {} request", firstLine.method());
                 throw new IllegalArgumentException("Invalid HTTP request: Missing body for " + firstLine.method() + " request");
             }
+
+            logger.debug("Parsed request body with {} bytes", body.length());
 
             return new MiniHttpRequest(firstLine.method(), firstLine.path(),
                     firstLine.version(), headersMap, body.getBytes());
         }
 
+        logger.debug("Request parsing complete");
         return new MiniHttpRequest(firstLine.method(), firstLine.path(),
                 firstLine.version(), headersMap, null);
     }
@@ -95,6 +111,7 @@ public final class MiniHttpParser {
                 return new HttpHeaderLine(headerName, headerValue);
             }
         }
+        logger.debug("Invalid line format: {}", line);
         return null; // Invalid line
     }
 

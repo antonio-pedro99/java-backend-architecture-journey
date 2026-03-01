@@ -6,6 +6,8 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -14,6 +16,8 @@ import java.net.InetSocketAddress;
  * An HTTP server that listens for incoming connections and processes HTTP requests using Netty.
  */
 public class MiniHttpServer {
+    private static final Logger logger = LoggerFactory.getLogger(MiniHttpServer.class);
+
     private final EventLoopGroup bossGroup = new NioEventLoopGroup();
     private final EventLoopGroup workerGroup = new NioEventLoopGroup();
 
@@ -37,14 +41,17 @@ public class MiniHttpServer {
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel sc) throws Exception {
+                           logger.debug("Initializing channel for {}", sc.remoteAddress());
                            sc.pipeline().addLast(new MiniHttpEncoder());
                            sc.pipeline().addLast(new MiniHttpHandler());
                         }
                     });
+            logger.info("Server listening on port {}", port);
             ChannelFuture f = bootstrap.bind().sync();
+            logger.info("Server started successfully on port {}", port);
             f.channel().closeFuture().sync();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error starting server", e);
         }
     }
 
@@ -53,10 +60,12 @@ public class MiniHttpServer {
      */
     public void shutdown() {
         try {
+            logger.info("Shutting down server...");
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
+            logger.info("Server shutdown complete");
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Error during server shutdown", e);
         }
     }
 
