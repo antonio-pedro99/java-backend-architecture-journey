@@ -9,18 +9,37 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.CharsetUtil;
+import io.netty.util.ReferenceCountUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * A Netty channel handler that processes incoming MiniHttpRequest messages and generates appropriate MiniHttpResponse messages.
  * This handler reads the HTTP request, constructs a response, and sends it back to the client.
  */
 public class MiniHttpHandler extends SimpleChannelInboundHandler<MiniHttpRequest> {
+    private static final Logger logger = LoggerFactory.getLogger(MiniHttpHandler.class);
+    private static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
     private MiniHttpRequest request;
     private final MiniHttpResponseSerializer responseSerializer = new MiniHttpResponseSerializer();
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, MiniHttpRequest httpRequest) throws Exception {
+        String timestamp = LocalDateTime.now().format(timeFormatter);
         this.request = httpRequest;
+
+        logger.debug("Received HTTP request from {}: {}",
+                ctx.channel().remoteAddress(),
+                httpRequest);
+
+        // INFO level: Basic request information (time, method, path)
+        logger.info("{} - {} {} from {}", timestamp, request.method(), request.path(), ctx.channel().remoteAddress());
+
+        ReferenceCountUtil.release(httpRequest);
     }
 
     @Override
@@ -34,7 +53,6 @@ public class MiniHttpHandler extends SimpleChannelInboundHandler<MiniHttpRequest
      * @param ctx the ChannelHandlerContext associated with the current channel
      */
     private void handleRequestContext(ChannelHandlerContext ctx) {
-        System.out.println(ctx.channel().remoteAddress() + ": " + request.method() + " " + request.path());
 
         final MiniHttpResponse.Builder responseBuilder = new MiniHttpResponse.Builder()
                 .withVersion(request.version())
@@ -46,15 +64,14 @@ public class MiniHttpHandler extends SimpleChannelInboundHandler<MiniHttpRequest
         String response = responseSerializer.serialize(responseBuilder.build());
         ChannelFuture w = ctx.writeAndFlush(Unpooled.copiedBuffer(response, CharsetUtil.UTF_8));
         if (w.isSuccess()) {
-            System.out.println("Response sent successfully to " + ctx.channel().remoteAddress());
+            logger.info("Response sent successfully to {}",  ctx.channel().remoteAddress());
         } else {
-            System.err.println("Failed to send response to " + ctx.channel().remoteAddress());
-            w.cause().printStackTrace();
+            logger.error("Failed to send response to {}", ctx.channel().remoteAddress(), w.cause());
         }
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        cause.printStackTrace();
+        logger.error("Exception caught while handling request from {}", ctx.channel().remoteAddress(), cause);
     }
 }
