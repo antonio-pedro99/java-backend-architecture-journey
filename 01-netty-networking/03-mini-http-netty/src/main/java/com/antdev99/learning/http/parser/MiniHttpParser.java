@@ -19,9 +19,9 @@ public final class MiniHttpParser {
      * @return an HttpRequest object representing the parsed HTTP request
      */
     public static MiniHttpRequest parseRequest(ByteBuf buf) {
-        HttpRequestLine requestLine = extractRequestLine(buf);
-        if (requestLine == null) {
-            throw new IllegalArgumentException("Invalid HTTP request: Missing request line");
+        HttpRequestFirstLine firstLine = extractRequestFirstLine(buf);
+        if (firstLine == null) {
+            throw new IllegalArgumentException("Invalid HTTP request: Missing first line");
         }
         List<HttpHeaderLine> headers = extractHeaders(buf);
         if (headers.isEmpty()) {
@@ -34,28 +34,28 @@ public final class MiniHttpParser {
                 HashMap::putAll
         );
 
-        if (requestLine.method().equals("POST") || requestLine.method().equals("PUT")) {
+        if (firstLine.method().equals("POST") || firstLine.method().equals("PUT")) {
             String body = readBody(buf);
             if (body.isBlank()) {
-                throw new IllegalArgumentException("Invalid HTTP request: Missing body for " + requestLine.method() + " request");
+                throw new IllegalArgumentException("Invalid HTTP request: Missing body for " + firstLine.method() + " request");
             }
 
-            return new MiniHttpRequest(requestLine.method(), requestLine.path(),
-                    requestLine.version(), headersMap, body.getBytes());
+            return new MiniHttpRequest(firstLine.method(), firstLine.path(),
+                    firstLine.version(), headersMap, body.getBytes());
         }
 
-        return new MiniHttpRequest(requestLine.method(), requestLine.path(),
-                requestLine.version(), headersMap, null);
+        return new MiniHttpRequest(firstLine.method(), firstLine.path(),
+                firstLine.version(), headersMap, null);
     }
 
-    private static HttpRequestLine extractRequestLine(ByteBuf buf) {
+    private static HttpRequestFirstLine extractRequestFirstLine(ByteBuf buf) {
         while (buf.isReadable()) {
             String line = readLine(buf);
             if (line.isEmpty()) {
                 break;
             }
-            final HttpTopLine processedLine = processHeaderLine(line);
-            if (processedLine instanceof HttpRequestLine requestLine) {
+            final HttpRequestLine processedLine = processLine(line);
+            if (processedLine instanceof HttpRequestFirstLine requestLine) {
                 return requestLine;
             }
         }
@@ -69,7 +69,7 @@ public final class MiniHttpParser {
             if (line.isEmpty()) {
                 break;
             }
-            final HttpTopLine processedLine = processHeaderLine(line);
+            final HttpRequestLine processedLine = processLine(line);
             if (processedLine instanceof HttpHeaderLine headerLine) {
                 headers.add(headerLine);
             }
@@ -77,14 +77,14 @@ public final class MiniHttpParser {
         return headers;
     }
 
-    private static HttpTopLine processHeaderLine(String line) {
+    private static HttpRequestLine processLine(String line) {
         if (line.startsWith("GET") || line.startsWith("POST") || line.startsWith("PUT") || line.startsWith("DELETE")) {
             String[] parts = line.split(" ");
             if (parts.length == 3) {
                 String method = parts[0];
                 String path = parts[1];
                 String version = parts[2];
-                return new HttpRequestLine(method, path, version);
+                return new HttpRequestFirstLine(method, path, version);
             }
         } else {
             String[] headerParts = line.split(": ", 2);
